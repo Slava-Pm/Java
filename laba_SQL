@@ -1,0 +1,105 @@
+import java.sql.*;
+import java.io.IOException;
+import java.util.Scanner;
+
+
+public class Main {
+    public  static final  String USER_NAME = "root";
+    public  static final  String PASSWORD = "Stalker11042002!";
+    public  static final  String URL = "jdbc:mysql://localhost:3306/mysql";
+    public  static Statement statement;
+    public  static Connection connection;
+
+    private static final  String SQL = "DELETE FROM facultet.Depatment" +
+            " WHERE id_depatment = 2";
+
+
+    static  {
+        try {
+            connection = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            throw new RuntimeException();
+        }
+    }
+
+    static {
+        try {
+            statement = connection.createStatement();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            throw new RuntimeException();
+        }
+    }
+
+    public static void main(String[] args) throws  ClassNotFoundException, SQLException, IOException {
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM facultet.Depatment");
+
+
+
+        try (Connection connection =DriverManager.getConnection(URL,USER_NAME,PASSWORD) ; Statement statement=connection.createStatement() ) {
+            int resultSet1 = statement.executeUpdate("UPDATE facultet.Depatment SET name='Кафедра информ.' WHERE id_depatment=2");
+            System.out.println(resultSet1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        System.out.println(" _________________________________________________________________________________________________________________________________________________________");
+
+        while (resultSet.next()) {
+            System.out.printf(" | %-15s | %-15s | %-65s | %-45s |\n" , resultSet.getString(1)  ,
+                    resultSet.getString(2)  ,
+                    resultSet.getString(3)  ,
+                    resultSet.getString(4) );
+        }
+        System.out.println(" ---------------------------------------------------------------------------------------------------------------------------------------------------------");
+
+
+
+        //          УДАЛЕНИЕ
+
+//           try (Connection connection = DriverManager.getConnection(
+//                    URL, USER_NAME, PASSWORD);
+//                 Statement statement = connection.createStatement()) {
+//
+//                System.out.println("Выполняем запрос:");
+//                System.out.println(SQL);
+//
+//                statement.executeUpdate(SQL);
+//
+//                System.out.println("Запрос на удаление данных выполнен.");
+//            } catch (SQLException ex) {
+//                ex.printStackTrace();
+//            }
+
+        //                      ДОБАВЛЕНИЕ
+
+//        try (Connection connection =DriverManager.getConnection(URL,USER_NAME,PASSWORD) ; Statement statement=connection.createStatement() ) {
+//            int resultSet1 = statement.executeUpdate("INSERT INTO facultet.Depatment (id_depatment,id_faculteta,name,FIO_zav)" + "VALUES (2,1, 'Кафедра информатики', 'Дорофеева Виктория Ивановна')");
+//            System.out.println(resultSet1);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+
+
+        //                    ЗАПРОС ОБЩЕГО ВИДА
+
+
+//        try (Connection connection = DriverManager.getConnection(URL,USER_NAME, PASSWORD); Statement statement = connection.createStatement() ) {
+//            Scanner sc = new Scanner(System.in);
+//            int SQLQuery = statement.executeUpdate(sc.nextLine());
+//            System.out.println(SQLQuery);
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+
+
+
+
+        connection.close();
+    }
+
+}
