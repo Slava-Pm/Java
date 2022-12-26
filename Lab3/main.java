@@ -75,8 +75,6 @@ class MyFrame extends JFrame implements ActionListener
     {
         Integer x = Integer.valueOf(f1.getText());
         Integer y = Integer.valueOf(f2.getText());
-
-        String binary = Integer.toBinaryString(x);
         String res = "";
         String oper = cb.getSelectedItem().toString();
         try{
@@ -92,16 +90,17 @@ class MyFrame extends JFrame implements ActionListener
                     break;
                 case ("~"):
                     if (y == 0){
-                        res = "I'm call to police";
+                        res = "Error!!!";
                     }else{
                         res = (x/y) + "";
                     }
                     break;
             }
-            f3.setText(res);
+            String binary = Integer.toBinaryString(Integer.parseInt(res));
+            f3.setText(binary);
 
         }catch(Exception err){
-            f3.setText("I'm call to police");
+            f3.setText("Error!!!");
         }
     }
 }
